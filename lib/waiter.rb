@@ -1,6 +1,5 @@
-class Waiter
-  
-  attr_accessor :name, :yrs_experience
+class Waiter 
+  attr_accessor :name, :yrs_experience 
   
   @@all = [] 
   
@@ -16,11 +15,12 @@ class Waiter
   
   def new_meal(customer, total, tip=0)
     Meal.new(self, customer, total, tip)
-  end 
+  end
   
   def meals 
     Meal.all.select do |meal|
       meal.waiter == self 
+      # checking for waiter now 
     end 
   end 
   
@@ -28,25 +28,10 @@ class Waiter
     best_tipped_meal = meals.max do |meal_a, meal_b|
       meal_a.tip <=> meal_b.tip 
     end 
+    
     best_tipped_meal.customer 
   end 
-  
-  def worst_tipper
-    worst_tipped_meal = meals.min do |meal_a, meal_b|
-      meal_a.tip <=> meal_b.tip 
-    end 
-    worst_tipped_meal.customer 
-  end 
-  
-  def most_frequent_customer
-    customer_count = Hash.new(0) 
-    Customer.all.each {|cust| customer_count[cust] += 1}
-    customer_count.sort_by {|cust, number|}.last[0] 
-  end 
-  
-end
-
-
+end 
 
 
 
